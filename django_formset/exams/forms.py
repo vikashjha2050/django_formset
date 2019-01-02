@@ -1,6 +1,7 @@
-form exams.models import exams
-from django.forms import Modelsform
+from django.forms import ModelForm
+from exams.models import exams
 
-class examform(Modelsform):
+class ExamForm(ModelForm):
 	class Meta:
 		model = exams
+		fields = '__all__'

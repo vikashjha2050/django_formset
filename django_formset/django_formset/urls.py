@@ -15,7 +15,9 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from exams.views import exam_add_edit
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^exams/add/', exam_add_edit , name='exam_add_edit')
 ]
