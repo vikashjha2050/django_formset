@@ -15,9 +15,10 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from exams.views import exam_add_edit
+from exams import views as exam_views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^exams/add/', exam_add_edit , name='exam_add_edit')
+    url(r'^exams/dashboard/', exam_views.exam_dashboard, name = 'exam_dashboard' ),
+    url(r'^exams/add/', exam_views.exam_add_edit , name = 'exam_add_edit'),
 ]

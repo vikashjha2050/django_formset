@@ -4,7 +4,9 @@ from exams.forms import ExamForm
 
 def exam_add_edit(request):
 	exform = ExamForm()
+	print(request.method)
 	if request.method == 'POST':
-		exform = examform(request.POST)
-		exform.save()
-	render(exform, 'exams/exam_create.html')
+		exform = ExamForm(request.POST)
+		if exform.is_valid():
+			exform.save()
+	return render(request, 'exams/exam_create.html',{'exform':exform})

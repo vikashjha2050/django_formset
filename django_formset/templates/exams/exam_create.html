@@ -4,7 +4,10 @@
 	<title>Exams Dashboard</title>
 </head>
 <body>
-	 {% csrf_token %}
-    {{ exform }}
+	<form method="POST">
+		{% csrf_token %}
+    	{{ exform }}
+    	<input type="submit" value="Add">
+    </form>    
 </body>
 </html>
