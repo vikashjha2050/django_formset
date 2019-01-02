@@ -4,9 +4,18 @@
 	<title>Exams Dashboard</title>
 </head>
 <body>
-	<button>Create Exam</button>
+	<a href="{% url 'exam_add' %}"> Create Exam</a>
+	<table>
+	<tr>
+		<th> Name </th>
+		<th> Actions </th>
+	</tr> 
 	{% for article in object_list %}
-		{{article}}
+		<tr>
+			<td> {{article.name}} </td>
+			<td> <a href="{% url 'exam_add' %}"> Edit </a>  </td>
+		</tr>
 	{% endfor %}
+	</table>
 </body>
 </html>
