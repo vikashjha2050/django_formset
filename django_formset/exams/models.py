@@ -7,3 +7,10 @@ class exams(models.Model):
 	
 	def __str__(self):
 		return self.name		
+
+class SubExam(models.Model):
+	parent_exam = models.IntegerField(default = None)
+	name = models.CharField(max_length = 10)
+
+	def __str__(self):
+		return self.name

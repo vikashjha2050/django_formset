@@ -7,6 +7,9 @@
 	<form method="POST">
 		{% csrf_token %}
     	{{ exform }}
+    	<p> Subexams</p>
+    	{{ exformset }}
+    	<br>
     	<input type="submit" value="Add">
     </form>    
 </body>

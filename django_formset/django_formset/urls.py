@@ -20,7 +20,7 @@ from exams import views as exam_views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^exams/dashboard/', exam_views.dashboard.as_view(), name = 'exam_dashboard' ),
-    url(r'^exams/add/', exam_views.exam_add_edit , name = 'exam_add'),
-    url(r'^exams/<int:pk>/edit/', exam_views.exam_add_edit , name = 'exam_edit'),
+    url(r'^exams/add/', exam_views.exam_add , name = 'exam_add'),
+    url(r'^exams/<int:pk>/edit/', exam_views.exam_edit , name = 'exam_edit'),
 
 ]
