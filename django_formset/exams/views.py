@@ -14,7 +14,7 @@ class dashboard(ListView):
 def exam_add(request):
 	exform = ExamForm()
 	subexformset = modelformset_factory(SubExam, form=SubExamForm, extra = 2)
-	subexformset = subexformset(request.POST or None, queryset = 	SubExam.objects.filter(id__isnull = True))
+	subexformset = subexformset(request.POST or None, queryset = SubExam.objects.filter(id__isnull = True))
 	if request.method == 'POST':
 		exam = exams()
 		exform = ExamForm(request.POST, instance = exam)
@@ -22,7 +22,6 @@ def exam_add(request):
 			exform.save()
 			instances = subexformset.save(commit=False)
 			for subexform in instances:
-				print(exam.id)
 				subexform.parent_exam = exam.id
 				subexform.save()
 			return redirect('/exams/dashboard/')
@@ -31,11 +30,22 @@ def exam_add(request):
 
 	return render(request, 'exams/exam_create.html',{'exform':exform,'exformset': subexformset})
 
-def exam_edit(request, pk=None):
-	exform = ExamForm()
+def exam_edit(request, pk = None):
+	exam = exams.objects.get(id = pk)
+	print(exam)
+	exform = ExamForm( instance = exam)
+	subexformset = modelformset_factory(SubExam, form=SubExamForm, extra=2)
+	subexformset = subexformset(request.POST or None, queryset = SubExam.objects.filter(parent_exam = pk))
 	if request.method == 'POST':
-		exform = ExamForm(request.POST)
-		if exform.is_valid():
+		exform = ExamForm(request.POST, instance = exam)
+		if exform.is_valid() and subexformset.is_valid():
 			exform.save()
+			instances = subexformset.save(commit=False)
+			for subexform in instances:
+				subexform.parent_exam = exam.id
+				subexform.save()
 			return redirect('/exams/dashboard/')
-	return render(request, 'exams/exam_create.html',{'exform':exform})
+		else:
+			print('invalid data')
+
+	return render(request, 'exams/exam_create.html',{'exform':exform,'exformset': subexformset})

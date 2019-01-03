@@ -13,7 +13,7 @@
 	{% for article in object_list %}
 		<tr>
 			<td> {{article.name}}-{{article.id}}</td>
-			<td> <a href="{% url 'exam_add' %}"> Edit </a>  </td>
+			<td> <a href="{% url 'exam_edit' article.id %}"> Edit </a>  </td>
 		</tr>
 	{% endfor %}
 	</table>
