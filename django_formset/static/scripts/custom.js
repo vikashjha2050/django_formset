@@ -16,6 +16,5 @@ $("#add_form").click(function(){
     .done(function(response) { 
         $('.setclass').html(response);
         $('.man_class').find('#id_form-TOTAL_FORMS').val(total)
-        alert(total);                                 
     });
 });

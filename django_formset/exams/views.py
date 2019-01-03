@@ -33,10 +33,10 @@ def exam_add(request):
 
 def exam_edit(request, pk = None):
 	exam = exams.objects.get(id = pk)
-	print(exam)
 	exform = ExamForm( instance = exam)
 	subexformset = modelformset_factory(SubExam, form=SubExamForm, extra=1)
 	subexformset = subexformset(request.POST or None, queryset = SubExam.objects.filter(parent_exam = pk))
+	print(subexformset)
 	if request.method == 'POST':
 		exform = ExamForm(request.POST, instance = exam)
 		if exform.is_valid() and subexformset.is_valid():
@@ -54,7 +54,7 @@ def exam_edit(request, pk = None):
 def getset(request):
 	extras = int(request.GET.get('extra'))
 	pk = int(request.GET.get('pk'))
-	print(request.get_full_path())
 	subexformset = modelformset_factory(SubExam, form=SubExamForm, extra=extras)
 	subexformset = subexformset(request.POST or None, queryset = SubExam.objects.filter(parent_exam = pk))
+	print(subexformset)
 	return HttpResponse(subexformset)
