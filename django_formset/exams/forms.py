@@ -10,4 +10,4 @@ class ExamForm(ModelForm):
 class SubExamForm(ModelForm):
 	class Meta:
 		model = SubExam
-		fields = ['name']
+		fields = ['name','institute']
