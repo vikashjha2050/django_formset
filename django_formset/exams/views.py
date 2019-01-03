@@ -51,8 +51,10 @@ def exam_edit(request, pk = None):
 
 	return render(request, 'exams/exam_create.html',{'exform':exform,'exformset': subexformset})
 
-def getset(request):
-	subexformset = modelformset_factory(SubExam, form=SubExamForm, extra = 1)
-	subexformset = subexformset(request.POST or None, queryset = SubExam.objects.filter(id__isnull = True))
-
+def getset(request, pk = None):
+	extras = int(request.GET.get('extra'))
+	print(extras)
+	subexformset = modelformset_factory(SubExam, form=SubExamForm, extra=extras)
+	subexformset = subexformset(request.POST or None, queryset = SubExam.objects.filter(parent_exam = pk))
+	print(subexformset)
 	return HttpResponse(subexformset)

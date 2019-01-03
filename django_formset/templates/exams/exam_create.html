@@ -12,8 +12,13 @@
 		<h1> Exams: </h1>
     	{{ exform }}
     	<h2> Subexams:</h2>
+        <div class="man_class">
+            {{ exformset.management_form }}
+        </div>
         <div class="setclass">
-    	{{ exformset.as_p }}
+    	{% for form in exformset %}
+            {{ form }}
+        {% endfor %}
         </div>
     	<br>
     	<button id='add_form' type="button"> Add </button>
