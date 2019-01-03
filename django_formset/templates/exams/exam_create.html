@@ -1,7 +1,10 @@
 <!DOCTYPE html>
+{% load static %}
 <html>
 <head>
 	<title>Exams Dashboard</title>
+    <script src="{% static 'scripts/jquery.min.js' %}"></script>
+	<script src="{% static 'scripts/custom.js' %}"></script>
 </head>
 <body>
 	<form method="POST">
@@ -9,9 +12,12 @@
 		<h1> Exams: </h1>
     	{{ exform }}
     	<h2> Subexams:</h2>
+        <div class="setclass">
     	{{ exformset.as_p }}
+        </div>
     	<br>
-    	<input type="submit" value="Add">
+    	<button id='add_form' type="button"> Add </button>
+    	<input type="submit" value="Submit">
     </form>    
 </body>
 </html>
