@@ -1,4 +1,5 @@
-$("#add_form").click(function(){
+$(document).ready(function(){
+  $("#add_form").click(function(){
    var total = $('.man_class').find('#id_form-TOTAL_FORMS').val();
    var init = $('.man_class').find('#id_form-INITIAL_FORMS').val();
    var extra = total-init+1;
@@ -39,4 +40,5 @@ $("#remove_form").click(function(){
        alert(response);
     });   
   }
+});
 });
