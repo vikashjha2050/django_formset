@@ -16,7 +16,15 @@
             {{ exformset.management_form }}
         </div>
         <div class="setclass">
-        {% include 'exams/formset_partial.html' %}
+        {% for form in exformset %}
+        <div class="setelement">
+          {{form.id}}
+          {{form.name.label}}
+          {{ form.name }}
+          {{form.institute.label}}
+          {{ form.institute }}<br><br>
+        </div>    
+        {% endfor %}
         </div>
     	<br>
     	<button id='add_form' type="button"> Add </button>
@@ -41,7 +49,7 @@
         data : {extra:extra,pk:pk},
     })
     .done(function(response) {
-        $('.setclass').html(response);
+        $('.setclass').append(response);
         $('.man_class').find('#id_form-TOTAL_FORMS').val(total)
     });
 });
@@ -51,23 +59,9 @@
    var init = $('.man_class').find('#id_form-INITIAL_FORMS').val();
    var extra = total-init;
    if(extra>1){
-    var extra = total-init-1;
     var total = parseInt(total, 10)-1;
-   
-   var pathname = window.location.pathname.split('/');
-   if(pathname.length == 5){
-     pk = pathname[2];
-   }else{
-     pk = 0;
-   }
-  $.ajax({
-        url: '/exams/getset/',
-        data : {extra:extra,pk:pk},
-    })
-    .done(function(response) {
-        $('.setclass').html(response);
-        $('.man_class').find('#id_form-TOTAL_FORMS').val(total)
-    });
+    $('.man_class').find('#id_form-TOTAL_FORMS').val(total);
+    $(this).parent().find('.setelement').last().remove();   
   }
 });
 

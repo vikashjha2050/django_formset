@@ -46,7 +46,6 @@ def exam_edit(request, pk = None):
 				subexform.save()
 			return redirect('/exams/dashboard/')
 		else:
-			print()
 			print(subexformset.errors)
 
 	return render(request, 'exams/exam_create.html',{'exform':exform,'exformset': subexformset})
@@ -56,4 +55,7 @@ def getset(request):
 	pk = int(request.GET.get('pk'))
 	subexformset = modelformset_factory(SubExam, form=SubExamForm, extra=extras)
 	subexformset = subexformset(request.POST or None, queryset = SubExam.objects.filter(parent_exam = pk))
-	return render(request, 'exams/formset_partial.html',{'exformset': subexformset})
+	subexformset = [form for form in subexformset]
+	subexformset = subexformset[-1]
+	print(subexformset)
+	return render(request, 'exams/formset_partial.html',{'form': subexformset})
