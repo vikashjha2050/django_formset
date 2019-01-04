@@ -20,6 +20,7 @@
         </div>
     	<br>
     	<button id='add_form' type="button"> Add </button>
+      <button id='remove_form' type="button"> Remove </button>
     	<input type="submit" value="Submit">
     </form>    
 </body>
@@ -40,10 +41,34 @@
         data : {extra:extra,pk:pk},
     })
     .done(function(response) {
-        console.log(response); 
         $('.setclass').html(response);
         $('.man_class').find('#id_form-TOTAL_FORMS').val(total)
     });
+});
+
+   $("#remove_form").click(function(){
+   var total = $('.man_class').find('#id_form-TOTAL_FORMS').val();
+   var init = $('.man_class').find('#id_form-INITIAL_FORMS').val();
+   var extra = total-init;
+   if(extra>1){
+    var extra = total-init-1;
+    var total = parseInt(total, 10)-1;
+   
+   var pathname = window.location.pathname.split('/');
+   if(pathname.length == 5){
+     pk = pathname[2];
+   }else{
+     pk = 0;
+   }
+  $.ajax({
+        url: '/exams/getset/',
+        data : {extra:extra,pk:pk},
+    })
+    .done(function(response) {
+        $('.setclass').html(response);
+        $('.man_class').find('#id_form-TOTAL_FORMS').val(total)
+    });
+  }
 });
 
 </script>

@@ -34,9 +34,8 @@ def exam_add(request):
 def exam_edit(request, pk = None):
 	exam = exams.objects.get(id = pk)
 	exform = ExamForm( instance = exam)
-	subexformset = modelformset_factory(SubExam, form=SubExamForm, extra=1)
-	subexformset = subexformset(request.POST or None, queryset = SubExam.objects.filter(parent_exam = pk))
-	print(subexformset)
+	subexformmodelset = modelformset_factory(SubExam, form=SubExamForm, extra=1)
+	subexformset = subexformmodelset(request.POST or None, queryset = SubExam.objects.filter(parent_exam = pk))
 	if request.method == 'POST':
 		exform = ExamForm(request.POST, instance = exam)
 		if exform.is_valid() and subexformset.is_valid():
@@ -47,7 +46,8 @@ def exam_edit(request, pk = None):
 				subexform.save()
 			return redirect('/exams/dashboard/')
 		else:
-			print('invalid data')
+			print()
+			print(subexformset.errors)
 
 	return render(request, 'exams/exam_create.html',{'exform':exform,'exformset': subexformset})
 
