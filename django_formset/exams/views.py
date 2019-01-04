@@ -57,5 +57,11 @@ def getset(request):
 	subexformset = subexformset(request.POST or None, queryset = SubExam.objects.filter(parent_exam = pk))
 	subexformset = [form for form in subexformset]
 	subexformset = subexformset[-1]
-	print(subexformset)
 	return render(request, 'exams/formset_partial.html',{'form': subexformset})
+
+def sub_delete(request,sub_id = None):
+	if sub_id:
+		SubExam.objects.get(id = sub_id).delete()
+	else:
+		print('not deleted')
+	return HttpResponse('deleted')

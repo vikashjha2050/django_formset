@@ -18,6 +18,7 @@
         <div class="setclass">
         {% for form in exformset %}
         <div class="setelement">
+        <div class="sub_id">{{form.id.value}}</div>
           {{form.id}}
           {{form.name.label}}
           {{ form.name }}
@@ -57,10 +58,22 @@
    $("#remove_form").click(function(){
    var total = $('.man_class').find('#id_form-TOTAL_FORMS').val();
    var init = $('.man_class').find('#id_form-INITIAL_FORMS').val();
+   var extra = total - init;
    if(total>1){
     var total = parseInt(total, 10)-1;
     $('.man_class').find('#id_form-TOTAL_FORMS').val(total);
-    $(this).parent().find('.setelement').last().remove();   
+    var init = parseInt(init, 10)-1;
+    if(extra==0){
+      $('.man_class').find('#id_form-INITIAL_FORMS').val(init);
+    }
+    var sub_id = $(this).parent().find('.setelement').last().find('.sub_id').html();
+    $(this).parent().find('.setelement').last().remove();
+    $.ajax({
+        url: '/exams/'+sub_id+/sub_delete/,
+    })
+    .done(function(response) {
+       alert(response);
+    });   
   }
 });
 
