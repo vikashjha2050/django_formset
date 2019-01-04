@@ -16,9 +16,7 @@
             {{ exformset.management_form }}
         </div>
         <div class="setclass">
-    	{% for form in exformset %}
-            {{ form }} <br>
-        {% endfor %}
+        {% include 'exams/formset_partial.html' %}
         </div>
     	<br>
     	<button id='add_form' type="button"> Add </button>
@@ -41,7 +39,8 @@
         url: '/exams/getset/',
         data : {extra:extra,pk:pk},
     })
-    .done(function(response) { 
+    .done(function(response) {
+        console.log(response); 
         $('.setclass').html(response);
         $('.man_class').find('#id_form-TOTAL_FORMS').val(total)
     });

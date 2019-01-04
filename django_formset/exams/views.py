@@ -56,5 +56,4 @@ def getset(request):
 	pk = int(request.GET.get('pk'))
 	subexformset = modelformset_factory(SubExam, form=SubExamForm, extra=extras)
 	subexformset = subexformset(request.POST or None, queryset = SubExam.objects.filter(parent_exam = pk))
-	print(subexformset)
-	return HttpResponse(subexformset)
+	return render(request, 'exams/formset_partial.html',{'exformset': subexformset})

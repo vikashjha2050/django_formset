@@ -1,0 +1,6 @@
+{% for form in exformset %}
+    {{form.name.label}}
+    {{ form.name }}
+    {{form.institute.label}}
+	{{ form.institute }}<br><br>    
+{% endfor %}
