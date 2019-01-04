@@ -57,8 +57,7 @@
    $("#remove_form").click(function(){
    var total = $('.man_class').find('#id_form-TOTAL_FORMS').val();
    var init = $('.man_class').find('#id_form-INITIAL_FORMS').val();
-   var extra = total-init;
-   if(extra>1){
+   if(total>1){
     var total = parseInt(total, 10)-1;
     $('.man_class').find('#id_form-TOTAL_FORMS').val(total);
     $(this).parent().find('.setelement').last().remove();   
