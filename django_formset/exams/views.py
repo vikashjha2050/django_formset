@@ -7,10 +7,23 @@ from django.http import HttpResponse
 from exams.models import exams, SubExam
 from exams.forms import ExamForm, SubExamForm
 # Create your views here.
+import pysolr
 
 class dashboard(ListView):
 	model = exams
 	template_name = 'exams/exam_dashboard.html'
+
+	def get_queryset(self):
+		context = exams.objects.all()
+		q = self.request.GET.get('q')
+
+		if q:
+			solr = pysolr.Solr('http://127.0.0.1:8983/solr/new_core1')
+			myquery = 'name:' + q
+			results = solr.search(q = myquery)
+			return results
+
+		return context
 
 def exam_add(request):
 	exform = ExamForm()
